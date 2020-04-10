@@ -1,0 +1,184 @@
+@import 'colores-default'
+
+*
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+    background-color: $color-fondo
+    font-size: 16px
+    color: $color-letra
+
+header
+    position: sticky
+    top: 0
+    left: 0
+
+.titulo-superior
+    background: $color-transicion
+    background: linear-gradient(90deg, $color-transicion 0%, $color-base 100%)
+    box-shadow: 0 1px 0 0 $color-shadow
+    line-height: 23px
+    font-size: 12px
+    color: #ffffff
+
+.titulo
+    padding: 39px 140px 0 91px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .logo
+        background: url($imagen-logo)
+        width: 102px
+        display: inline-block
+        height: 60px
+        background-repeat: no-repeat
+    .botones-cabecera
+        width: 420px
+        display: flex
+        justify-content: space-around
+        button
+            width: 144px
+            height: 36px
+            background-color: $color-base
+            border: 1px solid $color-shadow
+            box-shadow: inset -1px -1px 0 0, $color-box-shadow, inset 1px 1px 0 0 #FFFFFF
+            line-height: 18px
+            &:hover
+                border: 1px solid $color-shadow
+            &:active
+                border: 1px solid $color-shadow
+        select
+            width: 131px
+            height: 36px
+            background-color: $color-base
+            border: 1px solid $color-shadow
+            box-shadow: inset -1px -1px 0 0 $color-box-shadow, inset 1px 1px 0 0 #FFFFFF
+            line-height: 18px
+            &:hover
+                border: 1px solid $color-shadow
+            &:active
+                border: 1px solid $color-shadow
+        .link-mis-guifos
+            height: 36px
+            line-height: 36px
+            color: $color-contraste
+            &::first-letter
+                text-decoration: underline
+            &:hover
+                border: 1px solid $color-shadow
+            &:active
+                color: $color-gris-medio
+
+#buscar
+    height: 99px
+    margin: 19px 140px 0 91px
+    background-color: $color-fondo-gris
+    box-shadow: inset -2px -2px 0 0 $color-shadow-gris, inset 2px 2px 0 0 #FFFFFF
+    .titulo-buscar
+        height: 24px
+        top: 0
+    .body-buscar
+        background-color: $color-fondo-gris
+        line-height: 75px
+        padding: 15px
+        display: flex
+        justify-content: space-around
+        align-items: center
+        input
+            background-color: #ffffff
+            width: 74%
+            height: 48px
+            padding-left: 16px
+            color: $color-shadow-gris
+            border: 1px solid $color-box-shadow
+            line-height: 22px   
+            box-shadow: inset -2px -2px 0 0 $color-fondo-gris, inset 2px 2px 0 0 #000000
+            &:active ~ .boton-buscar
+                background-color: $color-base
+                border: 1px solid $color-shadow
+                box-shadow: inset -1px -1px 0 0 $color-box-shadow, inset 1px 1px 0 0 #FFFFFF
+                
+        .boton-buscar
+            width: 102px
+            height: 36px
+            background-color: $color-fondo-gris
+            border: 1px solid $color-gris-medio
+            box-shadow: inset -1px -1px 0 0 $color-shadow-gris, inset 1px 1px 0 0 #FFFFFF
+            line-height: 18px
+            color: $color-shadow-gris
+            display: flex
+            justify-content: space-evenly
+            align-items: center
+            img 
+                background-color: transparent
+            span 
+                background-color: transparent
+    .detalle-buscar
+        width: 100%
+        height: 160px
+        padding-left: 16px
+        display: none
+        position: sticky
+        flex-direction: column
+        justify-content: space-evenly
+        background: $color-fondo-gris
+        box-shadow: inset -2px -2px 0 0 $color-shadow-gris, inset 2px 2px 0 0 #FFFFFF
+        button
+            text-align: left
+            padding-left: 15px
+            height: 34px
+            width: 77%
+            margin-top: 10px
+            color: $color-contraste
+            line-height: 22px
+            background-color: $color-fondo-boton-inactivo
+            border: 1px solid $color-gris-medio
+            box-shadow: inset -1px -1px 0 0 $color-shadow-gris, inset 1px 1px 0 0 #FFFFFF
+            &:hover
+                border: 1px solid $color-shadow
+            
+.secciones
+    margin: 64px 140px 0 91px
+    h2
+        width: 100%
+        height: 32px
+        font-size: 14px
+        line-height: 32px
+        padding-left: 7px
+        font-weight: normal
+        color: $color-contraste2
+        background-color: $color-fondo-secciones
+        border: 1px solid $color-border-secciones
+        box-shadow: inset -2px -2px 0 0 $color-shadow-1, inset 2px 2px 0 0 #80687D
+    .galeria
+        display: flex
+        justify-content: space-between
+        padding-top: 16px
+        .imagen-con-marco
+            width: 20%
+            background-color: $color-fondo-gris
+            box-shadow: inset -2px -2px 0 0 $color-shadow-gris, inset 2px 2px 0 0 #FFFFFF
+            .titulo-imagen-marco
+                display: flex
+                justify-content: space-between
+                span
+                    font-size: 14px
+                    background-color: transparent
+                img
+                    background-color: transparent
+            &:hover > img
+                    border: 1px solid $color-shadow
+                        
+            
+#tendencias
+    display: block
+    .titulo-imagen-marco
+        display: none
+
+#sugerencias
+    display: block
+
+#resultado-busqueda
+    display: block  
+    .titulo-imagen-marco
+        display: none              
