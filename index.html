@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style-default.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet">
     <title>¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803</title>
 </head>
 <!-- 8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH   -->
@@ -11,14 +12,21 @@
     <header>
         <div class="titulo-superior">¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803</div>
         <article class="titulo">
-            <div class="logo"></div>
+            <div class="flecha-regresar" id="flecha-regresar"></div>
+            <div class="logo" id="logo"></div>
             <div class="botones-cabecera">
-                <button>Crear Guifos</button>
-                <select name="select-tema" id="select-tema">
-                    <option>Elegir Tema</option>
-                    <option>Sailor Day</option>
-                    <option>Sailor Night</option>
-                </select>
+                <button class="btn-crear-guifos">Crear Guifos</button>
+                <div>
+                    <div class="select-tema">
+                        <span>Elegir Tema</span>
+                        <img src="imagenes/dropdown.svg" alt="Icono buscar">
+                        
+                    </div>
+                    <div class="detalle-select-tema">
+                        <div class="tema-day">Sailor Day</div>
+                        <div class="tema-night">Sailor Night</div>
+                    </div>
+                </div>
                 <div class="link-mis-guifos">Mis Guifos</div>
             </div>
         </article>
@@ -32,142 +40,45 @@
             </div>
         </div>
         <div class="detalle-buscar">
-            <button>Resultado de búsqueda sugerido</button>
-            <button>Un resultado similar de búsqueda</button>
-            <button>Y otro más</button>
+            <button id="boton-sugerido">Resultado de búsqueda sugerido</button>
+            <button id="boton-similar">Un resultado similar de búsqueda</button>
+            <button id="boton-otro">Y otro más</button>
         </div>
     </section>
     <section id="sugerencias" class="secciones">
         <h2>Hoy te sugerimos:</h2>
-        <div class="galeria">
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-        </article>
+        <div class="galeria"></div>
     </section>
     <section id="tendencias" class="secciones">
         <h2>Tendencias:</h2>
-        <div class="galeria">
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-1" src="vacio.jpg" alt="imagen 1" />
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-2" src="vacio.jpg" alt="imagen 1" />
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-3" src="vacio.jpg" alt="imagen 1" />
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-4" src="vacio.jpg" alt="imagen 1" />
-            </article>
-        </article>
+        <div class="galeria"></div>
     </section>
     <section id="resultado-busqueda" class="secciones">
         <h2>Ejemplo de búsqueda (resultados)</h2>
-        <div class="galeria">
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-1" src="vacio.jpg" alt="imagen 1" />
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-2" src="vacio.jpg" alt="imagen 2" />
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-3" src="vacio.jpg" alt="imagen 3" />
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img class="img-4" src="vacio.jpg" alt="imagen 4" />
+        <div class="galeria"></div>
+    </section>
+    <section id="crear-guifos" class="secciones">
+        <article class="instrucciones">
+            <div class="titulo-superior titulo-buscar">Crear Guifos</div>
+            <article class="detalle-instrucciones">
+                <img class="img-crear" src="imagenes/window img.png" alt="Logo Crear Guifos">
+                <h4 class="h4-crear">Aquí podrás crear tus propios guifos</h4>
+                <p class="p-crear">
+                    Crear tu <span class="negrita">guifo</span> es muy fácil, graba cualquier imagen con tu cámara y obtén guifos personalizados. Los pasos para crear tu guifo son:<br/>
+                    <span class="negrita">1)</span> Dar permisos de acceso a la cámara (sólo por el tiempo de uso)<br/>
+                    <span class="negrita">2)</span> Capturar tu momento guifo<br/>
+                    <span class="negrita">3)</span> Revisar el momento<br/>
+                    <span class="negrita">4)</span> Listo para subir y compartir!<br/>
+                    ¿Quieres comenzar a crear tu <span class="negrita">guifo</span> ahora?<br/>
+                </p>
+                <button class="btn-crear-guifos" id="btn-crear-cancelar">Cancelar</button>
+                <button class="btn-crear-guifos" id="btn-crear-comenzar">Comenzar</button>
             </article>
         </article>
     </section>
     <section id="mis-guifos" class="secciones">
         <h2>Mis guifos</h2>
-        <div class="galeria">
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-            <article class="imagen-con-marco">
-                <div class="titulo-superior titulo-imagen-marco">
-                    <span>Titulo imagen 1</span>
-                    <img src="imagenes/button3.svg" alt="">
-                </div>
-                <img src="" alt="imagen1">
-            </article>
-        </article>
+        <div class="galeria"></div>
     </section>
     <script src="scripts/gifOs.js"></script>
 </body>
