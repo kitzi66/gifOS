@@ -1,6 +1,16 @@
 sugerencias('sugerencias');
 getSearchResults('tendencias', '', 'http://api.giphy.com/v1/gifs/trending', '', 12);
 
+document.getElementById('tema-day').addEventListener('click', evento => {
+    document.getElementsByTagName('body')[0].className = '';
+    document.querySelector('.detalle-select-tema').style.display = 'none';
+});
+
+document.getElementById('tema-night').addEventListener('click', evento => {
+    document.getElementsByTagName('body')[0].className = 'dark';
+    document.querySelector('.detalle-select-tema').style.display = 'none';
+});
+
 document.getElementById('logo').addEventListener('click', evento => {
     document.getElementById('resultado-busqueda').style.display = 'none';
     document.getElementById('tendencias').style.display = 'block';
@@ -147,18 +157,18 @@ function fillGalery(id_seccion, title, data, columnas) {
         let span = '1';
         columnas--;
         if (image_width > 280) {
-            image_width = 280*2;
+            image_width = 19.5*2;
             span = '2';
             columnas--;
         }else{
-            image_width = 280;
+            image_width = 19.5;
         }
 
         if (columnas >= 0) {
             let articulo = document.createElement('article');
             articulo.className = 'imagen-con-marco';
             articulo.style.gridColumnStart = 'span ' + span;
-            articulo.style.width = ((image_width/28) * 2) + "vw";
+            articulo.style.width = image_width + "vw";
             articulo.style.height = "20vw";
             articulo.style.backgroundSize = "100% 100%";
             articulo.style.backgroundRepeat = "no-repeat";
