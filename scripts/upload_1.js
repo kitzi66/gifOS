@@ -18,11 +18,6 @@ document.getElementById('btn-crear-comenzar').addEventListener('click', e => {
     getStreamAndRecord();
 });
 
-document.querySelector('#btn-crear-capturando').addEventListener('click', async e => {
-    console.log('Stop recording');
-    await recorder.stopRecording(stopRecording);
-});
-
 document.getElementById('btn-crear-capturar').addEventListener('click', startRecording);
 
 async function getStreamAndRecord() {
@@ -40,10 +35,13 @@ async function getStreamAndRecord() {
         hidden: 240,
         onGifRecordingStarted: function () {
             console.log('started');
+            document.querySelector('.precaptura-botones').style.justifyContent = 'space-between'
+            document.getElementById('tiempo_grabacion').style.display = 'inline';
+            document.querySelector('#btn-crear-capturar').classList.remove('btn-crear-capturar');
+            document.querySelector('#btn-crear-capturar').classList.add('btn-crear-capturando');
+            agregarEventoGrabando('btn-crear-capturando');
         }
     });
-
-    recorder.stream = stream;
 
     if ("srcObject" in video) {
         video.srcObject = stream;
@@ -58,11 +56,8 @@ async function getStreamAndRecord() {
 async function startRecording() {
     console.log('Empezamos a grabar');
     id_intervalo = setInterval(tiempoTranscurrido, 1000);
-    document.querySelector('.precaptura-botones').style.justifyContent = 'space-between'
-    document.getElementById('tiempo_grabacion').style.display = 'inline';
-    document.getElementById('btn-crear-capturar').style.display = 'none';
-    document.querySelector('.btn-crear-capturando').style.display = 'flex';
     await recorder.startRecording();
+    recorder.stream = stream;
 }
 
 async function stopRecording() {
@@ -73,16 +68,13 @@ async function stopRecording() {
 
         clearInterval(id_intervalo);
         blob = await recorder.getBlob();
-
-        document.querySelector('.img-gifos').src = URL.createObjectURL(recorder.getBlob());
-        document.querySelector('.img-gifos').style.display = 'inline';
-        document.querySelector('.video-gifos').style.display = 'none';
-        
+        video.src = URL.createObjectURL(blob);
         recorder.stream.stop();
 
         await recorder.reset();
         await recorder.destroy();
         recorder = null;
+        invokeSaveAsDialog(blob, 'prueba.webm');
     } catch (error) {
         console.log(error);
     }
@@ -163,4 +155,12 @@ function presentaTiempo(hora, minuto, segundo) {
     let mensaje = txt_hora + ':' + txt_minuto + ':' + txt_segundo;
     //console.log(mensaje);
     document.getElementById('tiempo_grabacion').innerHTML = mensaje;
+}
+
+function agregarEventoGrabando(clase) {
+    document.querySelector('.' + clase).addEventListener('click', async e => {
+        console.log('Stop recording');
+        await recorder.stopRecording();
+        stopRecording();
+    });
 }

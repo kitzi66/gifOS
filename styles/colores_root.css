@@ -13,7 +13,8 @@
     --color-letra: #000000;
     --color-contraste: #110038;
     --color-contraste2: #110038;
-
+    --color-tag-busqueda: #4180F6;
+    --color-fondo-boton-activo: #FFF4FD;
     --color-fondo-boton-inactivo: #F0F0F0;
 
     --imagen-logo: url('/imagenes/gifOF_logo.png');

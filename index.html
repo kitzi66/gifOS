@@ -12,16 +12,16 @@
     <header>
         <div class="titulo-superior">¡Bienvenidos/as a Guifos.com! ——————Donde los gifs están.////// Número de visitas: 12.765.803</div>
         <article class="titulo">
-            <div class="logos-flechas">
+            <div class="logos-flechas" id="logos-flechas">
                 <div class="flecha-regresar" id="flecha-regresar"></div>
                 <div class="logo" id="logo"></div>
             </div>
-            <div class="botones-cabecera">
+            <div id="botones-cabecera" class="botones-cabecera">
                 <button class="btn-crear-guifos">Crear Guifos</button>
                 <div>
                     <div class="select-tema">
-                        <span>Elegir Tema</span>
-                        <img src="imagenes/dropdown.svg" alt="Icono buscar">
+                        <span class="select-tema-texto">Elegir Tema</span>
+                        <span class="select-tema-img">
                         
                     </div>
                     <div class="detalle-select-tema">
@@ -37,14 +37,14 @@
         <div class="titulo-superior titulo-buscar">Buscar</div>
         <div class="body-buscar">
             <input type="text" name="input-buscar" id="input-buscar" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…" />
-            <div class="boton-buscar">
+            <div id="boton-buscar" class="boton-buscar-normal">
                 <img src="imagenes/lupa_inactive.svg" alt="Icono buscar"><span>Buscar</span>
             </div>
         </div>
-        <div class="detalle-buscar">
-            <button id="boton-sugerido">Resultado de búsqueda sugerido</button>
-            <button id="boton-similar">Un resultado similar de búsqueda</button>
-            <button id="boton-otro">Y otro más</button>
+        <div id="detalle-buscar" class="detalle-buscar-buscando">
+            <button id="boton-sugerido" class="boton-detalle">Resultado de búsqueda sugerido</button>
+            <button id="boton-similar" class="boton-detalle">Un resultado similar de búsqueda</button>
+            <button id="boton-otro" class="boton-detalle">Y otro más</button>
         </div>
     </section>
     <section id="sugerencias" class="secciones">
@@ -76,6 +76,21 @@
                 <button class="btn-crear-guifos" id="btn-crear-cancelar">Cancelar</button>
                 <button class="btn-crear-guifos" id="btn-crear-comenzar">Comenzar</button>
             </article>
+            <article class="precaptura">
+                <video id="video_gifOs" class="video-gifos">Video</video>
+                <img id="img_gifOs" class="img-gifos">
+                <div class="precaptura-botones">
+                    <h2 id='tiempo_grabacion'>00:00:00:00</h2>
+                    <button class="btn-crear-captura btn-crear-capturar" id="btn-crear-capturar">
+                        <div id="img-captura"></div>
+                        <span id="span-captura">Capturar</span>
+                    </button>
+                    <button class="btn-crear-captura btn-crear-capturando" id="btn-crear-capturando">
+                        <div id="img-capturando"></div>
+                        <span id="span-capturando">Listo</span>
+                    </button>
+                </div>
+            </article>
         </article>
     </section>
     <section id="mis-guifos" class="secciones">
@@ -83,5 +98,7 @@
         <div class="galeria"></div>
     </section>
     <script src="scripts/gifOs.js"></script>
+    <script src="scripts/upload.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 </body>
 </html>

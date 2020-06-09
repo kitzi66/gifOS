@@ -1,5 +1,9 @@
+'use strict';
+
+ocultarSeccion(['buscar', 'sugerencias', 'tendencias', 'botones-cabecera']);
 sugerencias('sugerencias');
 getSearchResults('tendencias', '', 'http://api.giphy.com/v1/gifs/trending', '', 12);
+activaBusquedaBotones('boton-detalle');
 
 document.getElementById('tema-day').addEventListener('click', evento => {
     document.getElementsByTagName('body')[0].className = '';
@@ -11,68 +15,60 @@ document.getElementById('tema-night').addEventListener('click', evento => {
     document.querySelector('.detalle-select-tema').style.display = 'none';
 });
 
-document.getElementById('logo').addEventListener('click', evento => {
-    document.getElementById('resultado-busqueda').style.display = 'none';
-    document.getElementById('tendencias').style.display = 'block';
-    document.getElementById('sugerencias').style.display = 'block';
+document.getElementById('logos-flechas').addEventListener('click', evento => {
+    ocultarSeccion(['buscar', 'sugerencias', 'tendencias', 'botones-cabecera']);
+    document.querySelector('#detalle-buscar').style.display = 'none';
 });
 
 document.getElementById('input-buscar').addEventListener('input', evento => {
     let valor = document.getElementById('input-buscar').value;
 
-    const url = 'http://api.giphy.com/v1/tags/related/' + valor;
-    const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
-    fetch(url + '?api_key=' + apiKey)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            let similar = data.data[Math.floor(Math.random() * 19)];
-            let boton = document.querySelector('#boton-sugerido');
-            boton.dataset.valor = similar.name;
-            boton.innerHTML = 'Resultado de la busqueda de ' + similar.name;
+    if (valor.length <= 0) {
+        document.querySelector('#boton-buscar').setAttribute('class', 'boton-buscar-normal boton-buscar-active');
+    } else {
+        document.querySelector('#boton-buscar').setAttribute('class', 'boton-buscar-normal boton-buscar-input');
+        const url = 'http://api.giphy.com/v1/tags/related/' + valor;
+        const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
+        fetch(url + '?api_key=' + apiKey)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                let similar = data.data[Math.floor(Math.random() * 10)];
+                let boton = document.querySelector('#boton-sugerido');
+                boton.dataset.valor = similar.name;
+                boton.innerHTML = '#' + similar.name;
 
-            similar = data.data[Math.floor(Math.random() * 19)];
-            boton = document.querySelector('#boton-similar');
-            boton.dataset.valor = similar.name;
-            boton.innerHTML = 'Un resultado similar a ' + similar.name;
+                similar = data.data[Math.floor(Math.random() * 10)];
+                boton = document.querySelector('#boton-similar');
+                boton.dataset.valor = similar.name;
+                boton.innerHTML = '#' + similar.name;
 
-            similar = data.data[Math.floor(Math.random() * 19)];
-            boton = document.querySelector('#boton-otro');
-            boton.dataset.valor = similar.name;
-            boton.innerHTML = 'Y otro mas... ' + similar.name;
-        })
-        .catch(error => {
-            return error;
-        });
+                similar = data.data[Math.floor(Math.random() * 10)];
+                boton = document.querySelector('#boton-otro');
+                boton.dataset.valor = similar.name;
+                boton.innerHTML = '#' + similar.name;
 
-    document.querySelector('.detalle-buscar').style.display = 'flex';
+                document.querySelector('#detalle-buscar').removeAttribute('class', 'detalle-buscar-buscado');
+                document.querySelector('#detalle-buscar').setAttribute('class', 'detalle-buscar-buscando');
+            })
+            .catch(error => {
+                return error;
+            });
+
+        document.querySelector('#detalle-buscar').style.display = 'flex';
+    }
 });
 
 document.querySelector('.link-mis-guifos').addEventListener('click', evento => {
-    let mis_guifos = document.querySelector('#mis-guifos');
-    let display_secciones = mis_guifos.style.display == "" ? 'none' : mis_guifos.style.display;
-
-    document.querySelector('#sugerencias').style.display = display_secciones;
-    document.querySelector('#tendencias').style.display = display_secciones;
-    document.querySelector('#crear-guifos').style.display = display_secciones;
-
-    display_secciones = display_secciones == 'none' ? 'block' : 'none';
-    mis_guifos.style.display = display_secciones;
+    ocultarSeccion(['mis-guifos', 'botones-cabecera']);
+    getMisGuifos();
 });
 
 document.querySelector('.btn-crear-guifos').addEventListener('click', evento => {
-    let crear_guifos = document.querySelector('#crear-guifos');
-    let display_secciones = crear_guifos.style.display == "" ? 'none' : crear_guifos.style.display;
-
-    document.querySelector('#buscar').style.display = display_secciones;
-    document.querySelector('#sugerencias').style.display = display_secciones;
-    document.querySelector('#tendencias').style.display = display_secciones;
-    document.querySelector('.botones-cabecera').style.display = display_secciones;
-
-    display_secciones = display_secciones == 'none' ? 'block' : 'none';
-    crear_guifos.style.display = display_secciones;
-    document.querySelector('#mis-guifos').style.display = display_secciones;
+    ocultarSeccion(['crear-guifos', 'mis-guifos']);
+    document.querySelector('.flecha-regresar').style.display = 'block';
+    getMisGuifos();
 });
 
 document.querySelector('.select-tema').addEventListener('click', evento => {
@@ -80,30 +76,16 @@ document.querySelector('.select-tema').addEventListener('click', evento => {
     document.querySelector('.detalle-select-tema').style.display = display_detalle_select_tema;
 });
 
-document.querySelector('.boton-buscar').addEventListener('click', evento => {
-    document.querySelector('.detalle-buscar').style.display = 'none';
+document.querySelector('#boton-buscar').addEventListener('click', evento => {
+    document.querySelector('#detalle-buscar').removeAttribute('class', 'detalle-buscar-buscando');
+    document.querySelector('#detalle-buscar').setAttribute('class', 'detalle-buscar-buscado');
+    ocultarSeccion(['buscar', 'resultado-busqueda', 'botones-cabecera']);
+
     let valor = document.querySelector('#input-buscar').value;
     getSearchResults('resultado-busqueda', valor, 'http://api.giphy.com/v1/gifs/search', '&q=' + valor, 16);
 });
 
-document.querySelector('#boton-sugerido').addEventListener('click', evento => {
-    document.querySelector('.detalle-buscar').style.display = 'none';
-    let valor = document.querySelector('#boton-sugerido').dataset.valor;
-    getSearchResults('resultado-busqueda', valor, 'http://api.giphy.com/v1/gifs/search', '&q=' + valor, 16);
-});
-
-document.querySelector('#boton-similar').addEventListener('click', evento => {
-    document.querySelector('.detalle-buscar').style.display = 'none';
-    let valor = document.querySelector('#boton-similar').dataset.valor;
-    getSearchResults('resultado-busqueda', valor, 'http://api.giphy.com/v1/gifs/search', '&q=' + valor, 16);
-});
-
-document.querySelector('#boton-otro').addEventListener('click', evento => {
-    document.querySelector('.detalle-buscar').style.display = 'none';
-    sugerencias('resultado-busqueda');
-});
-
-function sugerencias(id_seccion){
+function sugerencias(id_seccion) {
     const url = 'http://api.giphy.com/v1/trending/searches';
     const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
     const found = fetch(url + '?api_key=' + apiKey)
@@ -126,7 +108,7 @@ function getSearchResults(id_seccion, titulo, url, opciones, numero_imagenes) {
             return response.json();
         })
         .then(data => {
-            fillGalery(id_seccion, titulo, data, numero_imagenes);
+            fillGalery(id_seccion, titulo, data.data, numero_imagenes);
         })
         .catch(error => {
             return error;
@@ -134,75 +116,114 @@ function getSearchResults(id_seccion, titulo, url, opciones, numero_imagenes) {
     return found;
 }
 
-function fillGalery(id_seccion, title, data, columnas) {
+function getMisGuifos() {
+    getSearchResults('mis-guifos', 'Mis guifos', 'http://api.giphy.com/v1/gifs', '&ids=' + obtenerLocalStorage('myGifOs').join(','), 50);
+}
+
+function ocultarSeccion(secciones_activas) {
+    let secciones = ['buscar', 'resultado-busqueda', 'tendencias', 'sugerencias', 'mis-guifos', 'crear-guifos', 'buscar', 'botones-cabecera'];
+
+    for (let i = 0; i < secciones.length; i++) {
+        let valor_display = 'none';
+        if (secciones_activas.includes(secciones[i])) {
+            valor_display = secciones[i] == 'botones-cabecera' ? 'flex' : 'block';
+        }
+        document.getElementById(secciones[i]).style.display = valor_display;
+    }
+}
+
+function fillGalery(id_seccion, title, data, numero_imagenes) {
     if (title != '') {
         document.querySelector('#' + id_seccion + ' h2').innerHTML = title + ' (resultados)';
     }
 
-    if(id_seccion == 'resultado-busqueda'){
-        document.getElementById('resultado-busqueda').style.display = 'block';
-        document.getElementById('tendencias').style.display = 'none';
-        document.getElementById('sugerencias').style.display = 'none';
-    }else{
-        document.getElementById('resultado-busqueda').style.display = 'none';
-        document.getElementById('tendencias').style.display = 'block';
-        document.getElementById('sugerencias').style.display = 'block';
-    }
-
     document.querySelector('#' + id_seccion + ' .galeria').innerHTML = '';
-
-    for (let i = 0; i < data.data.length; i++) {
-        let datos_imagen = data.data[i];
-        let image_width = datos_imagen.images.fixed_width.width;
-        let span = '1';
-        columnas--;
-        if (image_width > 280) {
-            image_width = 19.5*2;
-            span = '2';
-            columnas--;
-        }else{
-            image_width = 19.5;
-        }
-
-        if (columnas >= 0) {
-            let articulo = document.createElement('article');
-            articulo.className = 'imagen-con-marco';
-            articulo.style.gridColumnStart = 'span ' + span;
-            articulo.style.width = image_width + "vw";
-            articulo.style.height = "20vw";
-            articulo.style.backgroundSize = "100% 100%";
-            articulo.style.backgroundRepeat = "no-repeat";
-            articulo.style.backgroundImage = "url('" + datos_imagen.images.fixed_width.url + "')";
-
-            if(id_seccion == 'sugerencias'){
-                let divTitulo = document.createElement('div');
-                divTitulo.className = 'titulo-superior titulo-imagen-marco';
-                let spanTitulo = document.createElement('span');
-                spanTitulo.innerHTML = datos_imagen.title;
-                divTitulo.appendChild(spanTitulo);
-                let imgTitulo = document.createElement('img');
-                imgTitulo.src = 'imagenes/button3.svg';
-                divTitulo.appendChild(imgTitulo);
-                articulo.appendChild(divTitulo);
-
-                let boton = document.createElement('button');
-                boton.innerHTML = 'Ver más...';
-                boton.className = 'button-ver-mas';
-                articulo.appendChild(boton);
-            }else{
-                let divTitulo = document.createElement('div');
-                divTitulo.className = 'titulo-superior subtitulo-imagen-marco';
-                let slug = datos_imagen.slug.split('-', 3);
-                divTitulo.innerHTML = "#" + slug.join(" #");
-                articulo.appendChild(divTitulo);
+    let pinta = false;
+    let lineas = parseInt(numero_imagenes / 4);
+    for (let j = 0; j < lineas; j++) {
+        let arrayPintado = [];
+        let columnas = 4;
+        for (let i = 0; i < data.length; i++) {
+            let datos_imagen = data[i];
+            let image_width = datos_imagen.images.fixed_height.width;
+            let proporcion = parseInt(image_width / 280);
+            let span = proporcion + 1;
+            pinta = false;
+            if (columnas - span >= 0) {
+                columnas -= span;
+                pinta = true;
+                arrayPintado.push(i);
             }
 
-            document.querySelector('#' + id_seccion + ' .galeria').appendChild(articulo);
+            if (pinta) {
 
-        } else {
-            i++;
-            columnas--;
+                let articulo = document.createElement('article');
+                articulo.className = 'imagen-con-marco';
+                articulo.style.gridColumnStart = 'span ' + span;
+
+                let slug = datos_imagen.slug.split('-', 3);
+                if (id_seccion == 'sugerencias') {
+                    articulo.style.height = '21.75vw';
+                    let divTitulo = document.createElement('div');
+                    divTitulo.className = 'titulo-superior titulo-imagen-marco';
+                    let spanTitulo = document.createElement('span');
+                    spanTitulo.innerHTML = datos_imagen.title;
+                    divTitulo.appendChild(spanTitulo);
+                    let imgTitulo = document.createElement('img');
+                    imgTitulo.src = 'imagenes/button3.svg';
+                    divTitulo.appendChild(imgTitulo);
+                    articulo.appendChild(divTitulo);
+
+                    let boton = document.createElement('button');
+                    boton.innerHTML = 'Ver más...';
+                    boton.className = 'button-ver-mas boton-detalle';
+                    boton.dataset.valor = slug[0];
+                    articulo.appendChild(boton);
+                } else {
+                    articulo.style.height = '20vw';
+                    articulo.style.flexDirection = 'column-reverse'
+                    let divTitulo = document.createElement('div');
+                    divTitulo.className = 'titulo-superior subtitulo-imagen-marco';
+                    divTitulo.innerHTML = "#" + slug.join(" #");
+                    articulo.appendChild(divTitulo);
+                }
+
+                let divImagen = document.createElement('div');
+                divImagen.className = 'imagen';
+                divImagen.style.height = "20vw";
+                divImagen.style.backgroundSize = "100% 100%";
+                divImagen.style.backgroundRepeat = "no-repeat";
+                divImagen.style.backgroundImage = "url('" + datos_imagen.images.fixed_height.url + "')";
+                articulo.appendChild(divImagen);
+
+                document.querySelector('#' + id_seccion + ' .galeria').appendChild(articulo);
+
+            }
+
         }
-
+        data = removerImagenArreglo(data, arrayPintado);
     }
+    activaBusquedaBotones('boton-detalle');
+}
+
+function removerImagenArreglo(imagenes_originales, imagenes_pintada) {
+    let temporal = imagenes_originales;
+    for (let i = imagenes_pintada.length - 1; i >= 0; i--) {
+        temporal = temporal.filter((e, index) => index !== imagenes_pintada[i]);
+    }
+    return temporal;
+}
+
+function activaBusquedaBotones(clase) {
+    document.querySelectorAll('.' + clase).forEach(box => {
+        box.addEventListener('click', evento => {
+            console.log(evento);
+            document.querySelector('#detalle-buscar').removeAttribute('class', 'detalle-buscar-buscando');
+            document.querySelector('#detalle-buscar').setAttribute('class', 'detalle-buscar-buscado');
+            ocultarSeccion(['buscar', 'resultado-busqueda', 'botones-cabecera']);
+
+            let valor = box.dataset.valor;
+            getSearchResults('resultado-busqueda', valor, 'http://api.giphy.com/v1/gifs/search', '&q=' + valor, 16);
+        });
+    });
 }
