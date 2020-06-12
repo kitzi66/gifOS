@@ -3,27 +3,31 @@
 var recorder;
 var stream;
 var id_intervalo;
+var id_barra_progreso;
+var pasos = 0;
 var segundos = 0;
 var blob;
 
-document.getElementById('btn-crear-comenzar').addEventListener('click', e => {
-    document.getElementById('mis-guifos').style.display = 'none';
-    document.querySelector('.detalle-instrucciones').style.display = 'none';
-    document.querySelector('.precaptura').style.display = 'block';
-    document.querySelector('#btn-crear-comenzar').style.display = 'none';
-    document.getElementById('tiempo_grabacion').style.display = 'none';
-    document.querySelector('.instrucciones').style.width = '59.8vw';
-    document.querySelector('.instrucciones').style.height = '38.1vw';
-    document.querySelector('.instrucciones > .titulo-superior').innerHTML = 'Un Chequeo Antes de Empezar';
-    getStreamAndRecord();
-});
+document.getElementById('btn-crear-comenzar').addEventListener('click', comenzarGrabacion);
 
 document.querySelector('#btn-crear-capturando').addEventListener('click', async e => {
     console.log('Stop recording');
     await recorder.stopRecording(stopRecording);
+    document.getElementById('crear-guifos').classList.add('vista_previa')
+    document.querySelector('.instrucciones > .titulo-superior').innerHTML = 'Vista Previa';
 });
 
 document.getElementById('btn-crear-capturar').addEventListener('click', startRecording);
+document.getElementById('btn-crear-repetir').addEventListener('click', comenzarGrabacion);
+document.getElementById('btn-crear-subir').addEventListener('click', uploadRecording);
+
+function comenzarGrabacion() {
+    document.getElementById('crear-guifos').classList.remove('antes_empezar','capturando','vista_previa','subiendo','subido')
+    document.getElementById('crear-guifos').classList.add('antes_empezar')
+    document.getElementById('mis-guifos').style.display = 'inline'
+    document.querySelector('.instrucciones > .titulo-superior').innerHTML = 'Un Chequeo Antes de Empezar'
+    getStreamAndRecord()
+}
 
 async function getStreamAndRecord() {
     stream = await navigator.mediaDevices.getUserMedia({
@@ -56,13 +60,13 @@ async function getStreamAndRecord() {
 }
 
 async function startRecording() {
-    console.log('Empezamos a grabar');
-    id_intervalo = setInterval(tiempoTranscurrido, 1000);
-    document.querySelector('.precaptura-botones').style.justifyContent = 'space-between'
-    document.getElementById('tiempo_grabacion').style.display = 'inline';
-    document.getElementById('btn-crear-capturar').style.display = 'none';
-    document.querySelector('.btn-crear-capturando').style.display = 'flex';
-    await recorder.startRecording();
+    console.log('Empezamos a grabar')
+    segundos = 0;
+    pasos = 0;
+    id_intervalo = setInterval(tiempoTranscurrido, 1000)
+    id_barra_progreso = setInterval(estadosBarraProgreso, 2000)
+    document.getElementById('crear-guifos').classList.add('capturando')
+    await recorder.startRecording()
 }
 
 async function stopRecording() {
@@ -71,13 +75,12 @@ async function stopRecording() {
 
         video.src = video.srcObject = null;
 
-        clearInterval(id_intervalo);
-        blob = await recorder.getBlob();
+        clearInterval(id_intervalo)
+        clearInterval(id_barra_progreso)
+        blob = await recorder.getBlob()
 
         document.querySelector('.img-gifos').src = URL.createObjectURL(recorder.getBlob());
-        document.querySelector('.img-gifos').style.display = 'inline';
-        document.querySelector('.video-gifos').style.display = 'none';
-        
+
         recorder.stream.stop();
 
         await recorder.reset();
@@ -89,32 +92,38 @@ async function stopRecording() {
 }
 
 function uploadRecording() {
-    var formData = new FormData();
-    formData.append('file', blob, 'myGift.gif');
+    //document.getElementById('crear-guifos').classList.remove('antes_empezar', 'capturando', 'vista_previa');
+    document.getElementById('crear-guifos').classList.add('subiendo')
+    let formData = new FormData()
+    formData.append('file', blob, 'myGift.gif')
     //uploadToServer(formData);
 }
 
 function uploadToServer(formData) {
-
+    id_barra_progreso = setInterval(estadosBarraProgreso1, 200);
     var miInit = {
         method: 'POST',
         body: formData,
         headers: new Headers(),
         mode: 'cors',
         cache: 'default'
-    };
+    }
 
     const url = 'http://upload.giphy.com/v1/gifs';
     const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
 
     fetch(url + '?api_key=' + apiKey, miInit)
         .then(function (response) {
-            console.log(response);
-            return response.json();
+            return response.json()
         })
         .then(function (json) {
-            console.log(json);
-            guardarLocalStorage('myGifOs', json.data.id);
+            console.log(json)
+            guardarLocalStorage('myGifOs', json.data.id)
+            clearInterval(id_barra_progreso)
+            document.getElementById('crear-guifos').classList.remove('antes_empezar','capturando','vista_previa','subiendo','subido')
+            document.getElementById('crear-guifos').classList.add('subido')
+        }).catch(e => {
+            console.log(e)
         });
 }
 
@@ -142,25 +151,40 @@ function obtenerLocalStorage(llave) {
 }
 
 function tiempoTranscurrido() {
-    segundos++;
-    let horas = 0;
-    let minutos = 0;
-    let restante = 0;
+    segundos++
+    let horas = 0
+    let minutos = 0
+    let restante = 0
 
-    restante = segundos % 60;
-    minutos = parseInt(segundos / 60);
+    restante = segundos % 60
+    minutos = parseInt(segundos / 60)
     if (minutos >= 60) {
-        minutos = (minutos % 60);
-        horas = parseInt(minutos / 60);
+        minutos = (minutos % 60)
+        horas = parseInt(minutos / 60)
     }
-    presentaTiempo(horas, minutos, restante);
+    presentaTiempo(horas, minutos, restante)
 }
 
 function presentaTiempo(hora, minuto, segundo) {
-    let txt_hora = hora < 10 ? '0' + hora : hora;
-    let txt_minuto = minuto < 10 ? '0' + minuto : minuto;
-    let txt_segundo = segundo < 10 ? '0' + segundo : segundo;
-    let mensaje = txt_hora + ':' + txt_minuto + ':' + txt_segundo;
-    //console.log(mensaje);
-    document.getElementById('tiempo_grabacion').innerHTML = mensaje;
+    let txt_hora = hora < 10 ? '0' + hora : hora
+    let txt_minuto = minuto < 10 ? '0' + minuto : minuto
+    let txt_segundo = segundo < 10 ? '0' + segundo : segundo
+    let mensaje = txt_hora + ':' + txt_minuto + ':' + txt_segundo
+    document.getElementById('tiempo_grabacion').innerHTML = mensaje
+}
+
+function estadosBarraProgreso() {
+    pasos++
+    if (pasos <= 20) {
+        document.querySelector('#progreso_' + pasos).classList.remove('libre')
+        document.querySelector('#progreso_' + pasos).classList.add('ocupado')
+    }
+}
+
+function estadosBarraProgreso1() {
+    pasos++
+    if (pasos <= 20) {
+        document.querySelector('#progreso1_' + pasos).classList.remove('libre')
+        document.querySelector('#progreso1_' + pasos).classList.add('ocupado')
+    }
 }
