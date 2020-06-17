@@ -663,21 +663,21 @@ header {
     font-weight: bold; }
   .subido .div-gifos-subido .btn-gifos-subido-copiar {
     grid-area: btn_copiar;
-    background: #FFF4FD;
+    background: var(--color-fondo);
     border: 1px solid #110038;
     box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
     width: 256px;
     height: 2.5vw; }
   .subido .div-gifos-subido .btn-gifos-subido-descargar {
     grid-area: btn_descargar;
-    background: #FFF4FD;
+    background: var(--color-fondo);
     border: 1px solid #110038;
     box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
     width: 256px;
     height: 2.5vw; }
   .subido .div-gifos-subido .btn-gifos-subido-listo {
     grid-area: btn_listo;
-    background: #F7C9F3;
+    background: var(--color-base);
     border: 1px solid #110038;
     box-shadow: inset -1px -1px 0 0 #997D97, inset 1px 1px 0 0 #FFFFFF;
     width: 144px;
