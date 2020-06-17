@@ -131,6 +131,7 @@ function uploadToServer(formData) {
 async function generaPresentacionFinal() {
     document.getElementById('crear-guifos').classList.remove('antes_empezar', 'capturando', 'vista_previa', 'subiendo', 'subido')
     document.getElementById('crear-guifos').classList.add('subido')
+    getMisGuifos();
     let misGuifos = obtenerLocalStorage('myGifOs')
     if (misGuifos.length > 0) {
         let id = misGuifos[misGuifos.length - 1];
