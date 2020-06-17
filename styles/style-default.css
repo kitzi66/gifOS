@@ -643,7 +643,7 @@ header {
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "img_subido lbl_subido" "img_subido btn_copiar" "img_subido btn_descargar" ". btn_listo";
   grid-gap: 27px;
-  background: #E6E6E6;
+  background: transparent;
   width: 95%;
   margin: auto;
   margin-top: 29px; }
