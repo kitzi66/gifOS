@@ -113,7 +113,7 @@ function uploadToServer(formData) {
         cache: 'default'
     }
 
-    const url = 'http://upload.giphy.com/v1/gifs';
+    const url = 'https://upload.giphy.com/v1/gifs';
     const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
     fetch(url + '?api_key=' + apiKey, miInit)
         .then(function (response) {
@@ -134,7 +134,7 @@ async function generaPresentacionFinal() {
     let misGuifos = obtenerLocalStorage('myGifOs')
     if (misGuifos.length > 0) {
         let id = misGuifos[misGuifos.length - 1];
-        let miImagen = await getSearchResults('mis-guifos', 'Mis guifos', 'http://api.giphy.com/v1/gifs', '&ids=' + id, 1);
+        let miImagen = await getSearchResults('mis-guifos', 'Mis guifos', 'https://api.giphy.com/v1/gifs', '&ids=' + id, 1);
         document.querySelector('.img-gifos-subido').style.backgroundSize = "100% 100%"
         document.querySelector('.img-gifos-subido').style.backgroundRepeat = "no-repeat"
         document.querySelector('.img-gifos-subido').style.backgroundImage = "url('" + miImagen.data[0].images.fixed_height.url + "')"
