@@ -203,7 +203,7 @@ header {
     line-height: 32px;
     padding-left: 7px;
     font-weight: normal;
-    color: #110038;
+    color: var(--color_letra_normal);
     background-color: var(--color-fondo-secciones);
     border: 1px solid var(--color-border-secciones);
     box-shadow: inset -2px -2px 0 0 var(--color-shadow-1), inset 2px 2px 0 0 #80687D; }
@@ -263,7 +263,8 @@ header {
   display: none; }
 
 #mis-guifos {
-  display: none; }
+  display: none;
+  height: 70vw; }
 
 #crear-guifos {
   display: none; }
