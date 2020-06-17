@@ -199,16 +199,10 @@ function estadosBarraProgreso1() {
 }
 
 function copiar() {
-    // Crea un campo de texto "oculto"
     var aux = document.createElement("input");
-    // Asigna el contenido del elemento especificado al valor del campo
     aux.value = document.querySelector('.img-gifos-subido').dataset.id;
-    // Añade el campo a la página
     document.body.appendChild(aux);
-    // Selecciona el contenido del campo
     aux.select();
-    // Copia el texto seleccionado
     document.execCommand("copy");
-    // Elimina el campo de texto de la página
     document.body.removeChild(aux);
 }
