@@ -1,5 +1,9 @@
 'use strict';
 
+(function(){
+    document.getElementsByTagName('body')[0].className = localStorage.getItem('tema');
+})();
+
 ocultarSeccion(['buscar', 'sugerencias', 'tendencias', 'botones-cabecera']);
 sugerencias('sugerencias');
 getSearchResults('tendencias', '', 'http://api.giphy.com/v1/gifs/trending', '', 12);
@@ -8,25 +12,38 @@ activaBusquedaBotones('boton-detalle');
 document.getElementById('tema-day').addEventListener('click', evento => {
     document.getElementsByTagName('body')[0].className = '';
     document.querySelector('.detalle-select-tema').style.display = 'none';
+    localStorage.setItem('tema', 'day')
 });
 
 document.getElementById('tema-night').addEventListener('click', evento => {
     document.getElementsByTagName('body')[0].className = 'dark';
     document.querySelector('.detalle-select-tema').style.display = 'none';
+    localStorage.setItem('tema', 'dark')
 });
 
 document.getElementById('logos-flechas').addEventListener('click', evento => {
-    ocultarSeccion(['buscar', 'sugerencias', 'tendencias', 'botones-cabecera']);
-    document.querySelector('#detalle-buscar').style.display = 'none';
+    inicio()
+});
+
+document.getElementById('btn-crear-cancelar').addEventListener('click', evento => {
+    inicio()
+});
+
+document.getElementById('btn-crear-cancelar-1').addEventListener('click', evento => {
+    inicio()
+});
+
+document.querySelector('.btn-gifos-subido-listo').addEventListener('click', evento => {
+    inicio()
 });
 
 document.getElementById('input-buscar').addEventListener('input', evento => {
     let valor = document.getElementById('input-buscar').value;
 
     if (valor.length <= 0) {
-        document.querySelector('#boton-buscar').setAttribute('class', 'boton-buscar-normal boton-buscar-active');
+        document.querySelector('#boton-buscar').setAttribute('class', 'btn-crear-captura boton-buscar-normal boton-buscar-active');
     } else {
-        document.querySelector('#boton-buscar').setAttribute('class', 'boton-buscar-normal boton-buscar-input');
+        document.querySelector('#boton-buscar').setAttribute('class', 'btn-crear-captura boton-buscar-normal boton-buscar-input');
         const url = 'http://api.giphy.com/v1/tags/related/' + valor;
         const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
         fetch(url + '?api_key=' + apiKey)
@@ -65,14 +82,14 @@ document.querySelector('.link-mis-guifos').addEventListener('click', evento => {
     getMisGuifos();
 });
 
-document.querySelector('.btn-crear-guifos').addEventListener('click', evento => {
+document.querySelector('#btn-crear-guifos').addEventListener('click', evento => {
     ocultarSeccion(['crear-guifos', 'mis-guifos']);
     document.querySelector('.flecha-regresar').style.display = 'block';
     getMisGuifos();
 });
 
 document.querySelector('.select-tema').addEventListener('click', evento => {
-    let display_detalle_select_tema = document.querySelector('.detalle-select-tema').style.display == 'none' ? 'flex' : 'none';
+    let display_detalle_select_tema = document.querySelector('.detalle-select-tema').style.display == 'flex' ? 'none' : 'flex';
     document.querySelector('.detalle-select-tema').style.display = display_detalle_select_tema;
 });
 
@@ -108,7 +125,11 @@ function getSearchResults(id_seccion, titulo, url, opciones, numero_imagenes) {
             return response.json();
         })
         .then(data => {
-            fillGalery(id_seccion, titulo, data.data, numero_imagenes);
+            if(numero_imagenes == 1){
+                return data;
+            }else{
+                fillGalery(id_seccion, titulo, data.data, numero_imagenes);
+            }
         })
         .catch(error => {
             return error;
@@ -117,7 +138,10 @@ function getSearchResults(id_seccion, titulo, url, opciones, numero_imagenes) {
 }
 
 function getMisGuifos() {
-    getSearchResults('mis-guifos', 'Mis guifos', 'http://api.giphy.com/v1/gifs', '&ids=' + obtenerLocalStorage('myGifOs').join(','), 50);
+    let misGuifos = obtenerLocalStorage('myGifOs')
+    if(misGuifos.length > 0){
+        getSearchResults('mis-guifos', 'Mis guifos', 'http://api.giphy.com/v1/gifs', '&ids=' + misGuifos.join(','), 50);
+    }
 }
 
 function ocultarSeccion(secciones_activas) {
@@ -226,4 +250,8 @@ function activaBusquedaBotones(clase) {
             getSearchResults('resultado-busqueda', valor, 'http://api.giphy.com/v1/gifs/search', '&q=' + valor, 16);
         });
     });
+}
+
+function inicio(){
+    location.reload()
 }

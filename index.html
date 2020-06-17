@@ -17,7 +17,7 @@
                 <div class="logo" id="logo"></div>
             </div>
             <div id="botones-cabecera" class="botones-cabecera">
-                <button class="btn-crear-guifos">Crear Guifos</button>
+                <button class="btn-crear-guifos" id="btn-crear-guifos">Crear Guifos</button>
                 <div>
                     <ul class="btn-crear-captura select-tema">
                         <li class="btn-crear-captura-texto">Elegir Tema</li>
@@ -33,13 +33,15 @@
         </article>
     </header>
     <section id="buscar">
-        <div class="titulo-superior titulo-buscar">Buscar</div>
-        <div class="body-buscar">
-            <input type="text" name="input-buscar" id="input-buscar" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…" />
-            <ul id="boton-buscar" class="btn-crear-captura boton-buscar-normal">
-                <li class="btn-crear-captura-imagen"></li>
-                <li class="btn-crear-captura-texto">Buscar</li>
-            </ul>
+        <div class="contenedor_principal_buscar">
+            <div class="titulo-superior titulo-buscar">Buscar</div>
+            <div class="body-buscar">
+                <input type="text" name="input-buscar" id="input-buscar" placeholder="Busca gifs, hashtags, temas, busca lo que quieras…" />
+                <ul id="boton-buscar" class="btn-crear-captura boton-buscar-normal">
+                    <li class="btn-crear-captura-imagen"></li>
+                    <li class="btn-crear-captura-texto">Buscar</li>
+                </ul>
+            </div>
         </div>
         <div id="detalle-buscar" class="detalle-buscar-buscando">
             <button id="boton-sugerido" class="boton-detalle">Resultado de búsqueda sugerido</button>
@@ -73,7 +75,7 @@
                     <span class="negrita">4)</span> Listo para subir y compartir!<br/>
                     ¿Quieres comenzar a crear tu <span class="negrita">guifo</span> ahora?<br/>
                 </p>
-                <button class="btn-crear-guifos" id="btn-crear-cancelar">Cancelar</button>
+                <button class="btn-crear-guifos secondary_button" id="btn-crear-cancelar">Cancelar</button>
                 <button class="btn-crear-guifos" id="btn-crear-comenzar">Comenzar</button>
             </article>
             <article class="precaptura">
@@ -155,11 +157,11 @@
                         </ul>
                     </div>
                     <div class="precaptura-botones-subir">
-                        <button class="btn-crear-guifos" id="btn-crear-repetir">Repetir Captura</button>
+                        <button class="btn-crear-guifos secondary_button" id="btn-crear-repetir">Repetir Captura</button>
                         <button class="btn-crear-guifos" id="btn-crear-subir">Subir Guifo</button>
                     </div>
                     <div class="precaptura-cancelar">
-                        <button class="btn-crear-guifos" id="btn-crear-cancelar-1">Cancelar</button>
+                        <button class="btn-crear-guifos secondary_button" id="btn-crear-cancelar-1">Cancelar</button>
                     </div>
                 </div>
             </article>

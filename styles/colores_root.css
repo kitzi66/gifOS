@@ -1,14 +1,27 @@
 :root{
-    --color-fondo: #ebdce9;
+    --color-fondo: #FFF4FD;
     --color-base: #F7C9F3;
-    --color-transicion: #4180F6;
-    --color-shadow: #110038;
-    --color-box-shadow: #997D97;
-    --color-fondo-gris: #E6E6E6;
-    --color-shadow-gris: #B4B4B4;
-    --color-gris-medio: #808080;
     --color-fondo-secciones: #FFFAFE;
     --color-border-secciones: #E6BBE2;
+    --color_base_hover: #E6BBE2;
+    --color-fondo-gris: #E6E6E6;
+    --color_busqueda_resultado_hover: #DBDBDB;
+    --color_boton_repetir_captura_hover: #F0E5EE;
+    --color-transicion: #4180F6;
+
+    --color_inner_base: #997D97;
+    --color_inner_tema_fondo: #B4B4B4;
+    --color_inner_boton_subir: #997D97;
+    --color_inner_boton_subir_2: #FFFFFF;
+
+    --color_boton_night: #F0F0F0;
+    --color_boton_day: #FFF4FD;
+
+    --color-shadow: #110038;
+    --color-box-shadow: #997D97;
+    --color-shadow-gris: #B4B4B4;
+    --color-gris-medio: #808080;
+    
     --color-shadow-1: #E6DCE4;
     --color-letra: #000000;
     --color-contraste: #110038;
@@ -17,11 +30,17 @@
     --color-tag-busqueda: #4180F6;
     --color-fondo-boton-activo: #FFF4FD;
     --color-fondo-boton-inactivo: #F0F0F0;
-    --color-fondo-temas: #CCA6C9;
+    --color-border-secondary: #110038;
+
+    --color_letra_normal: #110038;
+    --color_letra_medio: #B4B4B4;
+    --color_letra_obscuro: #110038;
+    --color_letra_contraste: #110038;
 
     --imagen-logo: url('/imagenes/gifOF_logo.png');
     --imagen-regresar: url('/imagenes/arrow.svg');
     --imagen-lupa-inactiva: url('/imagenes/lupa_inactive.svg');
+    --imagen-lupa-activa: url('/imagenes/lupa.svg');
     --imagen-camera: url('/imagenes/camera.svg');
     --imagen-recording: url('/imagenes/recording.svg');
     --imagen-forward: url('/imagenes/forward.svg');
@@ -31,27 +50,46 @@
 .dark{
     --color-fondo: #110038;
     --color-base: #EE3EFE ;
-    --color-transicion: #2E32FB;
-    --color-shadow: #110038;
-    --color-box-shadow: #997D97;
-    --color-fondo-gris: #B4B4B4;
-    --color-shadow-gris: #8F8F8F;
-    --color-gris-medio: #808080;
     --color-fondo-secciones: #FFFAFE;
     --color-border-secciones: #2E32FB;
+    --color_base_hover: #CE36DB;
+    --color-fondo-gris: #B4B4B4;
+    --color_busqueda_resultado_hover: #CCCCCC;
+    --color_boton_repetir_captura_hover: #110038;
+    --color-transicion: #2E32FB;
+    
+    --color_inner_base: #A72CB3;
+    --color_inner_tema_fondo: #8F8F8F;
+    --color_inner_boton_subir: #5C5C5C;
+    --color_inner_boton_subir_2: #FFF4FD;
+
+    --color_boton_night: #2E32FB;
+    --color_boton_day: #CCCCCC;
+
+    --color-shadow: #110038;
+    --color-box-shadow: #997D97;
+    --color-shadow-gris: #8F8F8F;
+    --color-gris-medio: #808080;
+    
     --color-shadow-1: #E6DCE4;
     --color-letra: #ffffff;
     --color-contraste: #ffffff;
     --color-contraste2: #110038;
 
-    --color-tag-busqueda: #B4B4B4;
+    --color-tag-busqueda: #4180F6;
     --color-fondo-boton-activo: red;
-    --color-fondo-boton-inactivo: red;
-    --color-fondo-temas: red;
+    --color-fondo-boton-inactivo: #CCCCCC;
+    --color-border-secondary: #B4B4B4;
+
+    --color_letra_normal: #FFFFFF;
+    --color_letra_medio: #8F8F8F;
+    --color_letra_obscuro: #110038;
+    --color_letra_contraste: #110038;
 
     --imagen-logo: url('/imagenes/gifOF_logo_dark.png');
     --imagen-regresar: url('/imagenes/arrow.svg');
     --imagen-lupa-inactiva: url('/imagenes/Combined_Shape.svg');
+    --imagen-lupa-activa: url('/imagenes/lupa_light.svg');
     --imagen-camera: url('/imagenes/camera_light.svg');
     --imagen-recording: url('/imagenes/recording_dark.svg');
     --imagen-forward: url('/imagenes/forward.svg');

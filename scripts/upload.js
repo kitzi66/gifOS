@@ -20,11 +20,15 @@ document.querySelector('#btn-crear-capturando').addEventListener('click', async 
 document.getElementById('btn-crear-capturar').addEventListener('click', startRecording);
 document.getElementById('btn-crear-repetir').addEventListener('click', comenzarGrabacion);
 document.getElementById('btn-crear-subir').addEventListener('click', uploadRecording);
+document.querySelector('.btn-gifos-subido-copiar').addEventListener('click', copiar)
+document.querySelector('.btn-gifos-subido-descargar').addEventListener('click', e => {
+    invokeSaveAsDialog(blob, 'filename.gif');
+});
 
 function comenzarGrabacion() {
-    document.getElementById('crear-guifos').classList.remove('antes_empezar','capturando','vista_previa','subiendo','subido')
+    document.getElementById('crear-guifos').classList.remove('antes_empezar', 'capturando', 'vista_previa', 'subiendo', 'subido')
     document.getElementById('crear-guifos').classList.add('antes_empezar')
-    document.getElementById('mis-guifos').style.display = 'inline'
+    document.getElementById('mis-guifos').style.display = 'block'
     document.querySelector('.instrucciones > .titulo-superior').innerHTML = 'Un Chequeo Antes de Empezar'
     getStreamAndRecord()
 }
@@ -73,7 +77,7 @@ async function stopRecording() {
     try {
         let video = document.querySelector('video');
 
-        video.src = video.srcObject = null;
+        video.srcObject = null
 
         clearInterval(id_intervalo)
         clearInterval(id_barra_progreso)
@@ -96,12 +100,13 @@ function uploadRecording() {
     document.getElementById('crear-guifos').classList.add('subiendo')
     let formData = new FormData()
     formData.append('file', blob, 'myGift.gif')
-    //uploadToServer(formData);
+    uploadToServer(formData);
 }
 
 function uploadToServer(formData) {
+    pasos = 0;
     id_barra_progreso = setInterval(estadosBarraProgreso1, 200);
-    var miInit = {
+    /*var miInit = {
         method: 'POST',
         body: formData,
         headers: new Headers(),
@@ -111,7 +116,7 @@ function uploadToServer(formData) {
 
     const url = 'http://upload.giphy.com/v1/gifs';
     const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
-
+    // {"data":{"id":"iHD03hAqwT44F4uctX"},"meta":{"msg":"OK","status":200}}
     fetch(url + '?api_key=' + apiKey, miInit)
         .then(function (response) {
             return response.json()
@@ -124,30 +129,44 @@ function uploadToServer(formData) {
             document.getElementById('crear-guifos').classList.add('subido')
         }).catch(e => {
             console.log(e)
-        });
+        });*/
+    setTimeout(() => {
+        let json = JSON.parse('{"data":{"id":"26gsqRNkYickx6tlm"},"meta":{"msg":"OK","status":200}}');
+        console.log(json)
+        guardarLocalStorage('myGifOs', json.data.id)
+        clearInterval(id_barra_progreso)
+        generaPresentacionFinal();
+    }, 2000);
+}
+
+async function generaPresentacionFinal() {
+    document.getElementById('crear-guifos').classList.remove('antes_empezar', 'capturando', 'vista_previa', 'subiendo', 'subido')
+    document.getElementById('crear-guifos').classList.add('subido')
+    let misGuifos = obtenerLocalStorage('myGifOs')
+    if (misGuifos.length > 0) {
+        let id = misGuifos[misGuifos.length - 1];
+        let miImagen = await getSearchResults('mis-guifos', 'Mis guifos', 'http://api.giphy.com/v1/gifs', '&ids=' + id, 1);
+        document.querySelector('.img-gifos-subido').style.backgroundSize = "100% 100%"
+        document.querySelector('.img-gifos-subido').style.backgroundRepeat = "no-repeat"
+        document.querySelector('.img-gifos-subido').style.backgroundImage = "url('" + miImagen.data[0].images.fixed_height.url + "')"
+        document.querySelector('.img-gifos-subido').dataset.id = miImagen.data[0].url;
+    }
 }
 
 function guardarLocalStorage(llave, dato) {
-    let consecutivo = localStorage.getItem('consecutivo_' + llave);
-    if (consecutivo == null) {
-        consecutivo = 1;
+
+    let datos_misGuifos = localStorage.getItem(llave)
+    let misGuifos = []
+    if (datos_misGuifos != null) {
+        misGuifos = JSON.parse(datos_misGuifos)
     }
-    localStorage.setItem(llave + '_' + consecutivo, dato);
-    localStorage.setItem('consecutivo_' + llave, consecutivo + 1);
+    misGuifos.push(dato);
+    localStorage.setItem(llave, JSON.stringify(misGuifos))
 }
 
 function obtenerLocalStorage(llave) {
-    let consecutivo = localStorage.getItem('consecutivo_' + llave);
-    let imagenes = [];
-    /*if(consecutivo == null){
-        return imagenes;
-    }*/
-
-    for (let i = 1; i <= consecutivo; i++) {
-        imagenes.push(localStorage.getItem(llave + '_' + i));
-    }
-
-    return imagenes;
+    let datos_misGuifos = localStorage.getItem(llave);
+    return JSON.parse(datos_misGuifos)
 }
 
 function tiempoTranscurrido() {
@@ -187,4 +206,19 @@ function estadosBarraProgreso1() {
         document.querySelector('#progreso1_' + pasos).classList.remove('libre')
         document.querySelector('#progreso1_' + pasos).classList.add('ocupado')
     }
+}
+
+function copiar() {
+    // Crea un campo de texto "oculto"
+    var aux = document.createElement("input");
+    // Asigna el contenido del elemento especificado al valor del campo
+    aux.value = document.querySelector('.img-gifos-subido').dataset.id;
+    // Añade el campo a la página
+    document.body.appendChild(aux);
+    // Selecciona el contenido del campo
+    aux.select();
+    // Copia el texto seleccionado
+    document.execCommand("copy");
+    // Elimina el campo de texto de la página
+    document.body.removeChild(aux);
 }
