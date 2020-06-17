@@ -96,7 +96,6 @@ async function stopRecording() {
 }
 
 function uploadRecording() {
-    //document.getElementById('crear-guifos').classList.remove('antes_empezar', 'capturando', 'vista_previa');
     document.getElementById('crear-guifos').classList.add('subiendo')
     let formData = new FormData()
     formData.append('file', blob, 'myGift.gif')
@@ -106,7 +105,7 @@ function uploadRecording() {
 function uploadToServer(formData) {
     pasos = 0;
     id_barra_progreso = setInterval(estadosBarraProgreso1, 200);
-    /*var miInit = {
+    var miInit = {
         method: 'POST',
         body: formData,
         headers: new Headers(),
@@ -116,27 +115,17 @@ function uploadToServer(formData) {
 
     const url = 'http://upload.giphy.com/v1/gifs';
     const apiKey = '8ddUn1OBNxlR9Eoomd5d3zys1iNYSGIH';
-    // {"data":{"id":"iHD03hAqwT44F4uctX"},"meta":{"msg":"OK","status":200}}
     fetch(url + '?api_key=' + apiKey, miInit)
         .then(function (response) {
             return response.json()
         })
         .then(function (json) {
-            console.log(json)
             guardarLocalStorage('myGifOs', json.data.id)
             clearInterval(id_barra_progreso)
-            document.getElementById('crear-guifos').classList.remove('antes_empezar','capturando','vista_previa','subiendo','subido')
-            document.getElementById('crear-guifos').classList.add('subido')
+            generaPresentacionFinal()
         }).catch(e => {
             console.log(e)
-        });*/
-    setTimeout(() => {
-        let json = JSON.parse('{"data":{"id":"26gsqRNkYickx6tlm"},"meta":{"msg":"OK","status":200}}');
-        console.log(json)
-        guardarLocalStorage('myGifOs', json.data.id)
-        clearInterval(id_barra_progreso)
-        generaPresentacionFinal();
-    }, 2000);
+        });
 }
 
 async function generaPresentacionFinal() {
