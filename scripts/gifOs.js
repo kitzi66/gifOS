@@ -110,7 +110,7 @@ function sugerencias(id_seccion) {
             return response.json();
         })
         .then(data => {
-            getSearchResults(id_seccion, '', 'http://api.giphy.com/v1/gifs/search', '&q=' + data[Math.floor(Math.random() * 19)], 4);
+            getSearchResults(id_seccion, '', 'https://api.giphy.com/v1/gifs/search', '&q=' + data[Math.floor(Math.random() * 19)], 4);
         })
         .catch(error => {
             return error;
