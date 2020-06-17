@@ -194,7 +194,7 @@ function fillGalery(id_seccion, title, data, numero_imagenes) {
                     spanTitulo.innerHTML = datos_imagen.title;
                     divTitulo.appendChild(spanTitulo);
                     let imgTitulo = document.createElement('img');
-                    imgTitulo.src = 'imagenes/button3.svg';
+                    imgTitulo.src = '/gifOs/imagenes/button3.svg';
                     divTitulo.appendChild(imgTitulo);
                     articulo.appendChild(divTitulo);
 
