@@ -139,7 +139,7 @@ function getSearchResults(id_seccion, titulo, url, opciones, numero_imagenes) {
 
 function getMisGuifos() {
     let misGuifos = obtenerLocalStorage('myGifOs')
-    if(misGuifos.length > 0){
+    if(misGuifos != null){
         getSearchResults('mis-guifos', 'Mis guifos', 'https://api.giphy.com/v1/gifs', '&ids=' + misGuifos.join(','), 50);
     }
 }
