@@ -37,14 +37,14 @@
     --color_letra_obscuro: #110038;
     --color_letra_contraste: #110038;
 
-    --imagen-logo: url('/gifOs/imagenes/gifOF_logo.png');
-    --imagen-regresar: url('/gifOs/imagenes/arrow.svg');
-    --imagen-lupa-inactiva: url('/gifOs/imagenes/lupa_inactive.svg');
-    --imagen-lupa-activa: url('/gifOs/imagenes/lupa.svg');
-    --imagen-camera: url('/gifOs/imagenes/camera.svg');
-    --imagen-recording: url('/gifOs/imagenes/recording.svg');
-    --imagen-forward: url('/gifOs/imagenes/forward.svg');
-    --imagen-dropdown: url('/gifOs/imagenes/dropdown.svg');
+    --imagen-logo: url('../imagenes/gifOF_logo.png');
+    --imagen-regresar: url('../imagenes/arrow.svg');
+    --imagen-lupa-inactiva: url('../imagenes/lupa_inactive.svg');
+    --imagen-lupa-activa: url('../imagenes/lupa.svg');
+    --imagen-camera: url('../imagenes/camera.svg');
+    --imagen-recording: url('../imagenes/recording.svg');
+    --imagen-forward: url('../imagenes/forward.svg');
+    --imagen-dropdown: url('../imagenes/dropdown.svg');
 }
 
 .dark{
